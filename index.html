@@ -1,6 +1,8 @@
 <!DOCTYPE <!DOCTYPE html>
 <html>
     <head>
+        <title>Sign Up Page</title>
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
         
     </head>
     <body>
@@ -13,7 +15,7 @@
                     
         zip Code:   <input type="text" name="zip" id="zip"><br>
         City:       <span id="city"></span><br>
-        Latitude:   <br>
+        Latitude:   <span id="latitude"></span><br>
         Longitude:  <br><br>
         State:      <select id="state" name="state">
                     <option value="">Select One</option>
@@ -29,5 +31,52 @@
         Password Again:   <input type="password" id="passwordAgain"><br>
         
         <input type="submit" value="Sign up!">
+        
+        
+        
+        <script>
+            $("#zip").on("change", function(){
+                
+                //alert($("#zip").val());
+                $.ajax({
+                    method: "GET",
+                    url: "https://itcdland.csumb.edu/~milara/ajax/cityInfoByZip.php?zip=93955",
+                    dataType: "json",
+                    data: {"zip": $("#zip").val()},
+                    success: function(result, status){
+                        
+                        //alert(result.city);
+                        $("#city").html(result.city);
+                    }
+                });//ajax   
+            });//zip
+            
+            $("#latitude").on("change", function() {
+                
+                    $.ajax({
+                   method: "GET",
+                   url: "https://itcdland.csumb.edu/~milara/ajax/cityInfoByZip.php?zip=93955",
+                   dataType: "json",
+                   data: {"latitude": $("latitude").val()},
+                   success: function(result,status){
+                       
+                   }
+                })
+            });
+            
+            $("$state").on("change",function(){
+               
+               //alert($("#state").val());
+               $.ajax({
+                   method: "GET",
+                   url: "",
+                   dataType: "",
+               })
+            });//state
+            
+        </script>
+        
     </body>
+    
+    
 </html>
