@@ -60,6 +60,7 @@
                    data: {"latitude": $("latitude").val()},
                    success: function(result,status){
                        
+                       $("#latitude").html(result.latitude);
                    }
                 })
             });
@@ -69,9 +70,13 @@
                //alert($("#state").val());
                $.ajax({
                    method: "GET",
-                   url: "",
-                   dataType: "",
-               })
+                   url: "https://itcdland.csumb.edu/~milara/ajax/countyList.php?state=ca",
+                   dataType: "json",
+                   data: {"state": $("#state").val()},
+                   success: function(result,status){
+                       alert(result[0].county);
+                   }
+               })//ajax
             });//state
             
         </script>
