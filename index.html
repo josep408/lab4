@@ -3,38 +3,47 @@
     <head>
         <title>Sign Up Page</title>
         <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     </head>
     <body>
         <h1>Sign Up</h1>
         
-        First Name: <input type="text" name="fName"><br>
-        Last Name:  <input type="text" name="lName"><br>
-        Gender:     <input type="radio" name="gender" value="m">Male
+        <form id="signupForm" method="post" action="welcome.html">
+        
+            First Name: <input type="text" name="fName"><br>
+            Last Name:  <input type="text" name="lName"><br>
+            Gender:     <input type="radio" name="gender" value="m">Male
                     <input type="radio" name="gender" value="f">Female<br><br>
                     
-        zip Code:   <input type="text" name="zip" id="zip"><br>
-        City:       <span id="city"></span><br>
-        Latitude:   <span id="latitude"></span><br>
-        Longitude:  <br><br>
-        State:      <select id="state" name="state">
+            zip Code:   <input type="text" name="zip" id="zip"><br>
+            City:       <span id="city"></span><br>
+            Latitude:   <span id="latitude"></span><br>
+            Longitude:  <br><br>
+            State:      <select id="state" name="state">
                     <option value="">Select One</option>
                     <option value="ca">California</option>
                     <option value="ny">New York</option>
                     <option value="tx">Texas</option>
-        </select><br />
+        <select><br />
         
-        Select a County: <select id="county"></select><br><br>
+            Select a County: <select id="county"></select><br><br>
         
-        Desired Username: <input type="text" name="username"name="username"><br>
-        Password:         <input type="password" id="password" name="password"><br>
-        Password Again:   <input type="password" id="passwordAgain"><br>
+            Desired Username: <input type="text" name="username"name="username"><br>
+                          <span id="usernameError"></span><br>
+            Password:         <input type="password" id="password" name="password"><br>
+                              <span id="passwordtooShort"></span>
+            Password Again:   <input type="password" id="passwordAgain"><br>
+                              <span id="paswordAgainError"></span><br /><br>
         
-        <input type="submit" value="Sign up!">
-        
+            <input type="submit" value="Sign up!">
+        </form>
         
         
         <script>
+        
+            var usernameAvailable = false;
+            
+        
             $("#zip").on("change", function(){
                 
                 //alert($("#zip").val());
@@ -50,6 +59,8 @@
                     }
                 });//ajax   
             });//zip
+            
+            
             
             $("#latitude").on("change", function() {
                 
@@ -74,10 +85,71 @@
                    dataType: "json",
                    data: {"state": $("#state").val()},
                    success: function(result,status){
-                       alert(result[0].county);
+                       //alert(result[0].county);
+                     for (let i=0; i < result.length; i++){
+                         $("#county").append("<option>" + result[i].county + "</option>")
+                     }
+
                    }
                })//ajax
             });//state
+            
+            $("#username").change(function(){
+                
+                //alert($("#username").val());
+                
+                $.ajax({
+                    method: "GET",
+                       url: "https://itcdland.csumb.edu/~milara/ajax/states.php",
+                  dataType: "json",
+                      data: {"username":$("#username").val() },
+                   success: function(result,status){
+                       
+                       if(result.available){
+                           $("#username").html("username is available");
+                           $("#username").css("color", "green");
+                           usernameAvailable = true;
+                       }
+                       else{
+                           $("#usernameError").html("Username is unavailable");
+                           $("usernameError").css("color", "red");
+                           usernameAvailable = false;
+                       }
+                   }
+                }); //ajax
+            }); //username
+            
+            $("#signupForm").on("submit",function(e){
+               
+               //alert("Submiting form...");
+               if(!isFormValid()){
+               e.preventDefault();
+               }
+            });
+            
+            function isFormValid(){
+                isValid = true;
+                if (!usernameAvailable){
+                    isValid= false;
+                }
+                
+                if($("#username").val().length == 0){
+                    isValid = false;
+                    $("#usernameError").html("Username is required");
+                }
+                
+                if($("#password").val() !=$("#passwordAgain").val()){
+                    $("passwordAgainError").html("Password Mismatch!");
+                }
+                
+                if($("#password").val().length < 6){
+                    $("#passwordtooShort").html("Password should be at least 6 characters long");
+                    isValid = false;
+                    
+                }
+                
+                return isValid
+            }
             
         </script>
         
