@@ -2,40 +2,67 @@
 <html>
     <head>
         <title>Sign Up Page</title>
+        <link rel="stylesheet" type="text/css" href="app.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     </head>
     <body>
-        <h1>Sign Up</h1>
+        <nav class="navbar navbar-inverse navbar-expand-lg fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">Navbar</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link" href="#">Home</span></a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+				</ul>
+				<ul class="navbar-nav navbar-right">
+					<li class="nav-item active"><a class="nav-link" href="#">Signup</span></a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
         
-        <form id="signupForm" method="post" action="welcome.html">
         
-            First Name: <input type="text" name="fName"><br>
-            Last Name:  <input type="text" name="lName"><br>
-            Gender:     <input type="radio" name="gender" value="m">Male
-                    <input type="radio" name="gender" value="f">Female<br><br>
+        
+        <divclass="jumbotron">
+            <h1>Sign Up</h1>
+        </div>
+        
+        
+        <form id="signupForm" method="post" action="welcome.html" onsubmit="return validate();">
+            <fieldset>
+              <legend> Sign Up</legend>
+            <div class="form-group row"><label>First Name:</label><input type="text" name="fName"></div><br>
+            <div class="form-group row"><label>Last Name:</label><input type="text" name="lName"></div><br>
+            <div class="form-group row"><label>Gender:</label><input type="radio" name="gender" value="m">Male
+             <div><input type="radio" name="gender" value="f">Female<br><br>
                     
-            zip Code:   <input type="text" name="zip" id="zip"><br>
-            City:       <span id="city"></span><br>
-            Latitude:   <span id="latitude"></span><br>
-            Longitude:  <br><br>
-            State:      <select id="state" name="state">
+            <div class="form-group row"><label>zip Code:</label>   <input type="text" name="zip" id="zip"></div><br>
+            <divclass="form-group row"><label>City: </label>      <span id="city"></span></div>br>
+            <div class="form-group row"><label>Latitude: </label>  <span id="latitude"></span></div><br>
+            <div class="form-group row"><label>Longitude: </label> </div><br><br>
+            <div class="form-group row"><label>State: </label>     <select id="state" name="state"></div>
                     <option value="">Select One</option>
                     <option value="ca">California</option>
                     <option value="ny">New York</option>
                     <option value="tx">Texas</option>
-        <select><br />
+        <divclass="form-group row"><label> Select a County: </label><select id="county"></select></div><br><br>
         
-            Select a County: <select id="county"></select><br><br>
-        
-            Desired Username: <input type="text" name="username"name="username"><br>
+            <divclass="form-group row"><label>Desired Username:</label> <input type="text" name="username"name="username"></div><br>
                           <span id="usernameError"></span><br>
-            Password:         <input type="password" id="password" name="password"><br>
+           <div class="form-group row"><label> Password: </label> <input type="password" id="password" name="password"></div><br>
                               <span id="passwordtooShort"></span>
-            Password Again:   <input type="password" id="passwordAgain"><br>
+            <div class="form-group row"><label>Password Again: </label>  <input type="password" id="passwordAgain"></div><br>
                               <span id="paswordAgainError"></span><br /><br>
         
-            <input type="submit" value="Sign up!">
+           <div> <input type="submit" value="Sign up!">
+          </fieldset>
         </form>
         
         
